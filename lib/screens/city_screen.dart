@@ -11,7 +11,7 @@ class _CityScreenState extends State<CityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('images/city_background.jpg'),
             fit: BoxFit.cover,
@@ -25,7 +25,7 @@ class _CityScreenState extends State<CityScreen> {
                 alignment: Alignment.topLeft,
                 child: TextButton(
                   onPressed: () {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back_ios,
                     size: 50.0,
                   ),
@@ -38,7 +38,7 @@ class _CityScreenState extends State<CityScreen> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Get Weather',
+                  'Get Weather new',
                   style: kButtonTextStyle,
                 ),
               ),
