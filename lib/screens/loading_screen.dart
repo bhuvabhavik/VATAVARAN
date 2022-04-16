@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
+import 'package:vatavaran/auth/secrets.dart';
 import 'package:vatavaran/services/location.dart';
 import 'package:vatavaran/services/networking.dart';
-
-const apiKey = 'a94cb8803247134d2b5adab7580dec68';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -42,7 +40,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   Future<void> getWeather() async {
     NetworkingHelper networkingHelper = NetworkingHelper(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$mySecretApiKey');
 
     var weatherData = networkingHelper.getData();
   }
