@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:vatavaran/services/location.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+const apiKey = 'a94cb8803247134d2b5adab7580dec68';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -10,8 +12,12 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  String s_url =
-      'https://samples.openweathermap.org/data/2.5/heather?lat=23&lon=69&appid=b6907d289e10d714a6e88b30761fae22';
+  late double latitude;
+  late double longitude;
+
+  // //late String temperature;
+  // late String conditionNo;
+  // late String city;
 
   @override
   void initState() {
@@ -22,20 +28,32 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getlocation() async {
     Location locationInstance = Location();
+
     await locationInstance.getCurrentLocation();
-    print(locationInstance.latitude);
-    print(locationInstance.longitude);
+    latitude = locationInstance.latitude;
+    longitude = locationInstance.longitude;
 
     getWeather();
-    // print('your current position:\n'
-    //     ' latitude: $locationInstance.latitude \n '
-    //     'longitude: $locationInstance.longitude');
+    print('your current position:\n'
+        ' latitude: $latitude \n '
+        'longitude: $longitude');
   }
 
   Future<void> getWeather() async {
-    http.Response response = await http.get(Uri.parse(s_url));
+    http.Response response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey'));
+
     if (response.statusCode == 200) {
-      print(response.body);
+      String data = response.body;
+      // print(data);
+      var temperature = json.decode(data)['main']['temp'];
+      print('Temperature: $temperature'); //weather[0].id
+      var conditionNo = jsonDecode(data)['weather'][0]['id'];
+      print('Condition: $conditionNo'); //name
+      var cityName = jsonDecode(data)['name'];
+      print('City: $cityName');
+
+      //data[main.temp];
     } else {
       print(response.statusCode);
     }
