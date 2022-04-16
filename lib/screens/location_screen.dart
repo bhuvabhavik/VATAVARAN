@@ -74,3 +74,14 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+/*
+*
+    var temperature = json.decode(data)['main']['temp'];
+    print('Temperature: $temperature'); //weather[0].id
+    var conditionNo = jsonDecode(data)['weather'][0]['id'];
+    print('Condition: $conditionNo'); //name
+    var cityName = jsonDecode(data)['name'];
+    print('City: $cityName');
+*
+* */

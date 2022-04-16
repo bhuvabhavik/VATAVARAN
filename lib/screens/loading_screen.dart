@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:vatavaran/services/location.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:vatavaran/services/networking.dart';
 
 const apiKey = 'a94cb8803247134d2b5adab7580dec68';
 
@@ -40,23 +41,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<void> getWeather() async {
-    http.Response response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey'));
+    NetworkingHelper networkingHelper = NetworkingHelper(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
-    if (response.statusCode == 200) {
-      String data = response.body;
-      // print(data);
-      var temperature = json.decode(data)['main']['temp'];
-      print('Temperature: $temperature'); //weather[0].id
-      var conditionNo = jsonDecode(data)['weather'][0]['id'];
-      print('Condition: $conditionNo'); //name
-      var cityName = jsonDecode(data)['name'];
-      print('City: $cityName');
-
-      //data[main.temp];
-    } else {
-      print(response.statusCode);
-    }
+    var weatherData = networkingHelper.getData();
   }
 
   @override
